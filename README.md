@@ -5,18 +5,74 @@
 <br>
 
 <p align="center">
-<img width="1000" src="https://github.com/user-attachments/assets/42c1790f-9de4-457b-8db0-d8c442585ffd" alt="Banner"/>
+<img width="800" src="https://github.com/user-attachments/assets/42c1790f-9de4-457b-8db0-d8c442585ffd" alt="Banner"/>
 <br />
 
 <br />
 
-In this lab we're going to finish the configuration to allow our Logs from the Virtual Machines to be sent into our Log Analytics Workspace., along with the actual Network Security groups.
+In this lab we’re going to continue Ingesting Logs into our Central Log Repository, aka our Log Analytics Workspace.
 
-After we make the necessary configurations, we'll Query our LAW for the Linux Logs, the Windows Logs as well as the NSG Logs.
+We’re going to bring in the **Logs from Microsoft Entra ID**, specifically the **Audit Logs** as well as the **Sign-in Logs**.
 
-This way we'll make sure that all of our Logs are coming into our Central Repository.
+<br>
 
-<br />
+>   <details close> 
+>   
+> **<summary> 📝 Refresher</summary>**
+> 
+> Just as a reminder, there are 3 Tiers of Logging in Azure:
+> 
+> ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+> 
+> 1. There’s the **Tenant Level Logging** ➜ which are the **Microsoft Entra ID Logs** ➜ which consist of **Sign-in Logs** and **Audit Logs**.
+>   
+>     - Whenever someone tries to sign in or log in to Microsoft Entra ID, a Log is created.
+>   
+>     - Or whenever an action is performed on a User Account or a Group, that counts as being Tenant Level Logging.
+>   
+>     - And these are the Logs we’re going to ingest into the Log Analytics Workspace in this Lab.
+> 
+> <br>
+>   
+> 2. In subsequent Labs we’re going to ingest the **Activity Logs**.
+>    
+>     - Activity Logs are basically for whenever you create or delete resources, or do anything on the Azure Portal with any of those Resources.
+>
+> <br>
+> 
+> 3. And then the **Resource Level Logs** ➜ these are Logs within the actual **Dataplane of the Resources**.
+>  
+>     - So this might be something like the Sign-in Logs inside of the actual Windows VM for example, or the Syslog Logs inside of the Linux VM.
+>   
+>     - Or doing things like actually manipulating files inside of the Azure Storage Account for example – those are all considered Resource Level Logs.
+> 
+> <br>
+> 
+>   </details>
+
+<br>
+
+<br>
+
+### High-Level Steps of what we’re going to do in this Lab:
+
+1. Create Diagnostic Settings to Ingest Microsoft Entra ID Logs ➜ Sign-in and the Audit Logs
+
+2. Create a Dummy User
+
+3. Perform some Actions & Observe Logging:
+    - Mass Sign-in Failures (***Sign-in Logs***)
+    - Assignment of “Global Administrator” to User (***Audit Log***)
+
+<br>
+
+✔️ We’re going to Perform these Actions and see what kind of Logs were Created on the backend.
+
+✔️ Then we'll make sure they’re being brought into our Log Analytics Workspace.  
+
+<br>
+
+<br>
 
 <details close> 
 <summary> <h2> 1️⃣ Create an Azure Storage Account</h2> </summary>

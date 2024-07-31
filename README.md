@@ -5,7 +5,7 @@
 <br>
 
 <p align="center">
-<img width="800" src="https://github.com/user-attachments/assets/42c1790f-9de4-457b-8db0-d8c442585ffd" alt="Banner"/>
+<img width="900" src="https://github.com/user-attachments/assets/42c1790f-9de4-457b-8db0-d8c442585ffd" alt="Banner"/>
 <br />
 
 <br />
@@ -52,8 +52,6 @@ We’re going to bring in the **Logs from Microsoft Entra ID**, specifically the
 
 <br>
 
-<br>
-
 ### High-Level Steps of what we’re going to do in this Lab:
 
 1. Create Diagnostic Settings to Ingest Microsoft Entra ID Logs ➜ Sign-in and the Audit Logs
@@ -75,48 +73,57 @@ We’re going to bring in the **Logs from Microsoft Entra ID**, specifically the
 <br>
 
 <details close> 
-<summary> <h2> 1️⃣ Create an Azure Storage Account</h2> </summary>
+<summary> <h2> 1️⃣ Create Diagnostic Settings to ingest Azure AD Logs</h2> </summary>
+<br>
+
+> So getting right into things ➜ the first thing we’re going to do is **Create the Diagnostic Settings** inside of **Microsoft Entra ID**.
+> 
+> This will allow us to **Export the Logs** into our **Log Analytics Workspace**.
+
+<br>
+
+We’ll go to the **”Azure Portal”** ➜ and open **”Microsoft Entra ID”**
+
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+
+We’ll then click on the **”Diagnostic Settings”** Blade:
+
+➜ We can see all the different types of Logs that we can bring in.
+
+➜ But for this Lab we’re just going to concern ourselves with the **Audit Logs** and the **SignInLogs**
+
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+
+Click on ➕ **Add diagnostic setting** to create a new Diagnostic Setting:
+
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+
+- The **”Diagnostic setting name”** can be anything ➜ I’ll just name mine ```ds-audit-signin```
+
+- For the **Logs’ Categories** ➜ check ☑️ **AuditLogs** and ☑️ **SignInLogs**
+
+- **“Destination details”** ➜ check ☑️ **Send to Log analytics workspace** ➜ select ```LAW-Cyber-Lab-01```
+    - ⚠️ Make sure it’s going to your actual LAW ➜ don’t send it to the *DefaultWorkspace*
+
+- Click 💾 Save
+
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+
+✅ We can confirm that our **Diagnostic Setting** was successfully created:
+
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+
 <br>
 
 >   <details close> 
 >   
-> **<summary> 📝 Explanation</summary>**
+> **<summary> 📋 Summary</summary>**
 > 
-> The first thing we're going to do is Create an Azure Storage Account.
+> We’re basically taking our time to ingest all of the Logs for all of our Resources into our LAW.
 > 
-> You can think about this as an ***Enterprise Dropbox or Google Drive*** ➜ it's just a place where you can store files.
->
-> It does offer a lot more functionallity and features than just a normal "Consumer Dropbox".
->
-> Azure requires this Storage Account to be set up for our NSG Flow Logs to be recorded.
->
-> A Network Security Group is essentially a Firewall that "seats" in front of the Virtual Machine.
->
-> And we can create what's called a **"Flow Log"** which will keep track of all of the traffic coming in and going out through this "Firewall".
->
-> It can Log Mallicious Traffic and different traffic types.
->
-> And so we need to Create the Storage Account where those Logs will be stored in an intermediary basis ➜ it's just something required by Azure.
+> Previously we did the VMs and the NSGs, next we’re doing Microsoft Entra ID, and in the subsequently labs we’re going to finish up with the Activity Logs and with the rest of our Dataplane Logs.
 >
 >   </details>
-
-<br>
-
-We will go to our **Azure Portal** ➜ search for **Storage Account** ➜ and click **"Create storage account"**
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-You can set it up with this details (or similar if applicable):
-- **Resource group**: ```RG-Cyber-Lab```
-- **Storage account name**: ```sacyberlab999``` ➜ it has to be globally unique
-- **Region**: ```East US 2``` ➜ ⚠️ make sure you put it in the **Same Region as you VMs**, otherwise it won't work!
-- Leave everything else as it is
-
-Click **"Create"**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-💡 Again, this will be used to store what's called the **"NSG Flow Logs"** ➜ there're essentially Logs from the Firewalls.
 
 <br>
 
@@ -125,61 +132,30 @@ Click **"Create"**:
 <h2></h2>
 
 <details close> 
-<summary> <h2>2️⃣ Enable Flow Logs for both Network Security Groups</h2> </summary>
+<summary> <h2> 2️⃣ Verify that the 2 Tables were created in the Log Analytics Workspace</h2> </summary>
 <br>
 
-> If you remember we have 2 NSGs ➜ 1 on the Windows Vm & 1 on the Linux VM.
-> 
-> So now we'll Enable Flow Logs for both of them.
-
-<br>
-
-We'll just go to **"Network security groups"** in the **Azure Portal**.
-
-And then we'll first click on the **"windows-vm-nsg"**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Click on the **"NSG flow logs"** blade ➜ and then the **"Create flow log"** button:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-We can actually create the Flow Log Settings for both of the NSGs' Flow Logs at the same time.
-
-To do so, we'll click on ➕ **Select resource** ➜ and after we'll select ☑️ both the **windows-vm-nsg** and the **linux-vm-nsg**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-- We'll select the Storage Acount ```sacyberlab999``` we just created
-
-- And we'll set the Retention to **"0 days"** ➜ meaning the data will be retained indefinitely:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-For the **Analytics** tab:
-- **Flow Logs Version**: ```⦿ Version 2```
-- Check ☑️ **Enable Traffic Analytics**
-  
-  - **Traffic Analytics processing interval**: ```Every 10 mins```
-  - **Log Analytics Workspace**: ```LAW-Cyber-Lab-01``` ➜ ⚠️ make sure to the Flows Logs are going to your own LAW!
+> We can check the Workspace just to make sure the actual Tables have been created, which will ultimately hold the Logs.
 
 <br>
 
->   <details close> 
->   
-> **<summary> 💡 Traffic Analytics</summary>**
-> 
-> This is where **Microsoft Defender for Cloud** will **Analyse the Traffic** and it will determine which traffic is **Malicious** and which one is **Benign**.
-> 
-> MDC has different categorizations for the traffic ➜ and so we'll use Traffic Analysis later to plot on a **World Map**.
->  
->   </details>
+We’ll go to our **Log Analytics Workspace** ➜ and click on the **”Tables”** blade:
+
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+
+There should be 2 tables called ** SignInLogs**  and ** AuditLogs**  ➜ so we’ll search for them:
+
+
+WE’LL COME BACK TO THIS!!!!!!!!!!!!!!!!!!!!!
+
 
 <br>
 
-Then you can click **"Review + create"** to create our Flow Logs:
+<br>
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+<br>
+
+<br>
 
   </details>
 

@@ -5,7 +5,7 @@
 <br>
 
 <p align="center">
-<img width="900" src="https://github.com/user-attachments/assets/42c1790f-9de4-457b-8db0-d8c442585ffd" alt="Banner"/>
+<img width="900" src="https://github.com/user-attachments/assets/757f9ce2-0dcd-4e73-a036-1634c2039876" alt="Banner"/>
 <br />
 
 <br />
@@ -22,7 +22,7 @@ We’re going to bring in the **Logs from Microsoft Entra ID**, specifically the
 > 
 > Just as a reminder, there are 3 Tiers of Logging in Azure:
 > 
-> ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+> ![azure portal](https://github.com/user-attachments/assets/adbf8dbb-a391-48e4-af06-4886ade26ae6)
 > 
 > 1. There’s the **Tenant Level Logging** ➜ which are the **Microsoft Entra ID Logs** ➜ which consist of **Sign-in Logs** and **Audit Logs**.
 >   
@@ -52,7 +52,7 @@ We’re going to bring in the **Logs from Microsoft Entra ID**, specifically the
 
 <br>
 
-### High-Level Steps of what we’re going to do in this Lab:
+### ➡️ High-Level Steps of what we’re going to do in this Lab:
 
 1. Create Diagnostic Settings to Ingest Microsoft Entra ID Logs ➜ Sign-in and the Audit Logs
 
@@ -82,11 +82,11 @@ We’re going to bring in the **Logs from Microsoft Entra ID**, specifically the
 
 <br>
 
-We’ll go to the **”Azure Portal”** ➜ and open **”Microsoft Entra ID”**
+We’ll go to the **"Azure Portal"** ➜ and open **"Microsoft Entra ID"**
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
-We’ll then click on the **”Diagnostic Settings”** Blade:
+We’ll then click on the **"Diagnostic Settings"** Blade:
 
 ➜ We can see all the different types of Logs that we can bring in.
 
@@ -98,11 +98,11 @@ Click on ➕ **Add diagnostic setting** to create a new Diagnostic Setting:
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
-- The **”Diagnostic setting name”** can be anything ➜ I’ll just name mine ```ds-audit-signin```
+- The **"Diagnostic setting name"** can be anything ➜ I’ll just name mine ```ds-audit-signin```
 
 - For the **Logs’ Categories** ➜ check ☑️ **AuditLogs** and ☑️ **SignInLogs**
 
-- **“Destination details”** ➜ check ☑️ **Send to Log analytics workspace** ➜ select ```LAW-Cyber-Lab-01```
+- **"Destination details"** ➜ check ☑️ **Send to Log analytics workspace** ➜ select ```LAW-Cyber-Lab-01```
     - ⚠️ Make sure it’s going to your actual LAW ➜ don’t send it to the *DefaultWorkspace*
 
 - Click 💾 Save
@@ -139,11 +139,11 @@ Click on ➕ **Add diagnostic setting** to create a new Diagnostic Setting:
 
 <br>
 
-We’ll go to our **Log Analytics Workspace** ➜ and click on the **”Tables”** blade:
+We’ll go to our **Log Analytics Workspace** ➜ and click on the **"Tables"** blade:
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
-There should be 2 tables called ** SignInLogs**  and ** AuditLogs**  ➜ so we’ll search for them:
+There should be 2 tables called **"SignInLogs"**  and **"AuditLogs"**  ➜ so we’ll search for them:
 
 
 WE’LL COME BACK TO THIS!!!!!!!!!!!!!!!!!!!!!
@@ -162,308 +162,147 @@ WE’LL COME BACK TO THIS!!!!!!!!!!!!!!!!!!!!!
 <h2></h2>
 
 <details close> 
-<summary> <h2>3️⃣ Configure Data Collection Rules within our Log Analytics Workspace</h2> </summary>
+<summary> <h2>3️⃣ Create a Dummy User</h2> </summary>
 <br>
 
->   <details close> 
->   
-> **<summary> 📝 Explanation</summary>**
-> 
-> The next thing we're going to do is Configure Data Collection Rules for our Virtual Machines.
-> 
-> The Data Collection Rules will work in conjunction with Defender for Cloud and the Agents that get installed on the VMs.
+> We’ll go back to Microsoft Entra ID and create a User called **"dummy_user"**.
 >
-> They work to specify which Logs from the VMs to forward to the Log Analytics Workspace.
-> 
-> If you remember ➜ in the Windows VM there were the System Logs, the Security Logs, the Application Logs, and a whole bunch of other Logs.
-> 
-> The Data Collection Rules allow us to define which ones of those Logs get forwarded to the LAW.
-> 
-> We don't want to forward everything ➜ because it will end up costing more than it should.
->
->   </details>
+> Doing this should generate an Audit Log.
 
 <br>
 
-To **Configure Data Collection Rules (DCR)** we can go to our Log Analytics Workspace ```LAW-Cyber-Lab-01```
-
-We'll click on the **"Agents"** blade ➜ and the on the **"Data Collection Rules"** Button:
+Go to **"Microsoft Entra ID"** ➜ and click on the **"Users"** blade:
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
-Then click on ➕ **Create** to create a new DCR:
+We’ll Add a User by clicking on **"Create a user"**
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
 
-We'll create it with the following details:
-- **Rule Name**: ```dcr-all-vms``` ➜ 💡 this stands for 1 single DCR that will apply to all of our VMs
-- **Resource group**: ```RG-Cyber-Lab```
-- **Region**: ```East US 2``` ➜ ⚠️ again, make sure you put it in the **Same Region as you VMs**, otherwise it won't work!
-- **Platform Type**: ⦿ **All**
+- We can Name it ```dummy_user```
+- Copy and Save the **Auto-generated Password**
+- Click **"Review + create"** to Create the New User:
 
-Then click "Next" to reach the **Resources** tab:
+![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+Once the New User is Created ➜ we'll open a New Private Browsing Tab ➜ And go to **portal.azure.com**
 
-For the Resources we're going to ➕ **Add Resources**:
+![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+Now we'll attempt to Log in with the New User's Credentials.
 
-Now expand the **> RG-Cyber Lab** Resource Group ➜ and select ☑️ for both of our VMs ➜ click **"Apply"**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Click **"Next: Collect and deliver >"**
-
-💡 This is where we'll specify which Logs from within the VMs we're going to collect.
-
-So we'll click on the ➕ **Add data source** button:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-We'll do the **"Linux Syslog"** first.
-
-In this Lab, the only Logs we're going to Collect from the Linux VM are the ```LOG_AUTH``` Logs.
+<br>
 
 >   <details close> 
 >   
 > **<summary> 💡 </summary>**
 >   
-> The AUTH LOGS are the Logs we inspected earlier ➜ where we saw all the **SSH Failure Attempts**.
+> Creating the User should have generated an **AuditLog**
 > 
-> For the data source settings, when selecting the **"Minimum log level"** ➜ this signifies the level of logging we want to collect:
-> 
-> DEBUG essentially means "collect everything", and then in kind of scales down towards EMERG which means "only collect critical logs".
+> And the attempting to Sig In with the User's crendentials should generated a **SignInLog**
 > 
 >   </details>
 
-So for **LOG_AUTH** ➜ leave the **"Minimum log level"** at ```LOG_DEBUG``` ➜ meaning we'll collect all the Auth Logs.
+<br>
 
-And then we'll select ```LOG_DEBUG``` for the rest of the Log Types.
+It'll have us change our **Password** ➜ so we'll just change it to ```Cyberlab123!```
 
-After setting that up, click on the **"Next : Destination"** button:
+![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+✅ So we were able to Log In as the **Dummy User**:
 
-For **Destination** ➜ make sure you're sending the data to your actual **LAW**, not the random one that was created! ⚠️
-
-Click **"Add data source"**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Now click on the ➕ **Add data source** button again:
-
-The next one is going to be **"Windows Event Logs"**.
-
->   <details close> 
->   
-> **<summary> 💡 </summary>**
->   
-> This might be hard to remember, but back when we were configuring SQL logging for the SQL Server Database ➜  the SQL Logs appeared on the Application Event Log ➜ under Information
-> 
-> And then for Security ➜  Audit Success & Audit Failure ➜  this is when someone tries to Remote Desktop into our Windows VM or tries to Map a File Share.
-> 
->   </details>
-
-We're going to select the ☑️ **Information** Logs from **"Application"** type.
-
-And also select the ☑️ **Audit Success** & ☑️ **Audit Failure** Logs from the **"Security"** type.
-
-This is all we need for the Windows Event Logs, so then we'll click on **"Next : Destination"**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Again ➜ for **Destination** ➜ we need to make sure we put our actual LAW ```LAW-Cyber-Lab-01```.
-
-Then Add the data source:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-We can now **"Review + create"** to Create the Data Collection Rule:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
 
   </details>
 
 <h2></h2>
 
 <details close> 
-<summary> <h2>4️⃣ Configure Special Windows Event Data Collection (Defender and Windows Firewall)</h2> </summary>
+<summary> <h2>4️⃣ Assign the Dummy User the Role of Global Administrator</h2> </summary>
 <br>
 
 >   <details close> 
 >   
 > **<summary> 💡 Summary</summary>**
 >   
-> Next we're going to add a Special Data Sources to our Data Collection Rule.
+> If you remember from the previous lab ➜ it is a big deal to assign someone in your company the **Global Administrator Role**.
 >   
-> It will Log whenever somebody messes with the Windows Firewall ➜ like if they Turn Off the Firewall
+> Usually that will envolve some kind of change-management and more than one person overseeing it.
 > 
-> And also when Malware is discovered in the Virtual Machines ➜ it will create and pull those Logs out as well.
-> 
->   </details>
-
-<br>
-
-We'll go back to our **Log Analytics Wokspace** ➜ click on the **"Agents"** blade ➜ and then on the **"Data Collection Rules"** Button:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Click on the Data Collection Rule that we just created ➜ ```dcr-all-vms```
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Then we'll go to the **"Data Sources"** blade ➜ and click on the **"Windows Event Logs"** Data Source:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-This time instead of **"Basic"** we'll go to **"Custom"**.
-
-<br>
-
->   <details close> 
->   
-> **<summary> 📝 Explanation</summary>**
->   
-> We can see in the image below the XPath queries that we previously selected ➜ under **Event Logs**.
->   
-> Think of an XPath query as Microsoft's "convention" for specifying which Logs (Application & Security in this case) and which "Sub-Logs" inside of those two we want to capture.
-> 
-> So in order for us to Collect Logs from the Firewall, as well as the actual Defender Anti-Malware on the Virtual Machines ➜ we have to use this XPath syntax convention to specify which Logs to capture.
+> Or at least it will envolve more than one person knowing that that assignment is going on.
 > 
 >   </details>
 
 <br>
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+Go back to the **"Users"** page in the Azure Portal ➜ and click on the ```dummy_user```
 
-We want to configure our **Data Collection Rule** so that:
+![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
 
-1. If Malware is discovered ➜ a Log is created and it's forwarded into our Log Analytics Workspace:
+💡 Assigning **Global Admin** to this Dummy User should generate another **AuditLog**
 
-Copy the following **Windows Defender Malware Detection XPath Query**.
-
-```commandline
-Microsoft-Windows-Windows Defender/Operational!*[System[(EventID=1116 or EventID=1117)]]
-```
-<br>
-
-And now add it to the **Add Data Source Section**:
+So we can go to the **"Assigned roles"** blade ➜ and click on ➕ **Add assignments**
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
-2. Also if the Firewall is disabled or messed with ➜ we want the Firewall Logs to be forwarded to our Log Analytics Workspace as well:
-
-Copy the following **Windows Firewall Tampering Detection XPath Query**.
-
-```commandline
-Microsoft-Windows-Windows Firewall With Advanced Security/Firewall!*[System[(EventID=2003)]]
-```
-<br>
-
-Again, we'll add it to the **Add Data Source Section**:
+search for ```global administrator``` ➜ select ☑️ **Global Administrator** ➜ and **"Add"** the Role:
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
-Click **"Save"** and we've successfully configured our Data Collection Rule with "Special Forwarding" ✅
+✅ We can verify that the Dummy User was succcessfully assigned the **Global Administrator Role**:
 
-<br>
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
   </details>
 
 <h2></h2>
 
 <details close> 
-<summary> <h2>5️⃣ Manually Install the Log Analytics Agent on the Windows VM</h2> </summary>
+<summary> <h2>5️⃣ Delete the Dummy User</h2> </summary>
 <br>
 
 >   <details close> 
 >   
 > **<summary> 💡 Summary</summary>**
 >   
-> Defender for Cloud in Azure should automatically install the necessary agent on both Virtual Machines to allow the Logs to be forwarded.
-> 
-> Basically the agent will work in conjunction with the Data Collection rules to pick which Logs to forward, and then it will ultimately forward them into the Log analytics Workspace.
-> 
-> But we can manually install the Agent on the Virtual Machines just to make sure it is indeed there and it is forwarding the Logs as it should.
-> 
-> So we're just going to do that in this section of the lab.
+> This will generate another **Audit Log**.
+>   
+> We should be able to eventually see all thsi actions we took in side of our Log analytics Workspace.
 > 
 >   </details>
 
 <br>
 
-Back to our **Log Analytics Wokspace** ➜ click on the **"Agents"** blade
+We'll just go back to the **"Microsoft Entra ID"** page ➜ clik on the **"Users"** Blade
 
-We're first going to Install the Agent on the ```windows-vm``` ➜ so under the **"`Windows servers"** tab ➜ expand the **"Log Analytics agent instructions"**:
+Then inside the **"dummy_user"** ➜ **"Overview"** Blade ➜ click on 🗑️ **Delete** ➜ Press **"OK"**
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
->   <details close> 
->   
-> **<summary> 📝 Explanation</summary>**
->   
-> Basically we're going to log into our Windows Vm and then install the ***Windows Agent (64 bit)***.
-> 
-> We'll then use the **Workspace ID** & **Primary Key** to force the Agent to point back to our Log Analytics Workspace and Forward the Logs to it.
-> 
->   </details>
+✅ That should have also created an **Audit Log** in the AuditLogs table.
 
+  </details>
+
+<h2></h2>
+
+<details close> 
+<summary> <h2>6️⃣ Observe AuditLogs in Log Analytics Workspace</h2> </summary>
 <br>
 
-So let's Connect to the **Windows Vm** ➜ open **Microsoft Remote Desktop** ➜ and then connect with the VM's Public IP Address (which we've done many times before in previous labs):
+Let's go back to our Log Analytics Workspace ```LAW-Cyber-Lab-01```
+
+Clik on the **"Logs"** Blade ➜ and we'll Run the Query ```AuditLogs```
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
-Use your credentials:
-- **Username**: ```labuser```
-- **Password**: ```Cyberlab123!```
+✅ We can basically see the "trail" of what we did with the Dummy User:
+1. Add User ➜ Created the Dummy User
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+2. Change User Password ➜ Changed the Password of the Dummy User after Login In using an Incognito Window.
 
-Once connected to the Windows Vm ➜ go back to the Azure Portal on your Computer and copy the "Download link" to **Install the Agent on the Windows VM**.
+3. Add member to role ➜ Assigned the Global Administrator Role to the Dummy User
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Now in the Windows Vm ➜ open up **"Edge"** ➜ Paste the Link & Download the Agent:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-You can Open the File ➜ and click **"Next"** until you reach the section where you want to select:
-
-```☑️ Connect the agent to Azure Log Analytics (OMS)```
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-In the next section ➜ Paste the **Workspace ID** & **Workspace Key** you Copied from the Azure Portal back in your Computer:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-⚠️ Make sure **"Azure Cloud"** is set to ```Azure Commercial```
-
-Click **"Next and then **"Install"**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Once the Agent has finished Installing ➜ still inside the **Windows VM** ➜ open **Control Panel**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Click on **"Large Icons"** ➜ and then **"Microsoft Monitoring Agent"**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Then if we go to the **"Azure Log Analytics (OMS)"** tab ➜ and we should see:
-
-- The Workspace ID we pasted earlier
-
-- The status: ```✅ The Microsoft Monitoring Agent has successfully connected to the Microsoft Operations Management Suite service.```
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-This signifies that the Connection is Successfull and so it should be Forwarding Logs into our LAW.
-
-✅ So we're done with this Windows VM portion.
+4. Delete user ➜ Deleted the Dummy User
 
 <br>
 
@@ -472,93 +311,12 @@ This signifies that the Connection is Successfull and so it should be Forwarding
 <h2></h2>
 
 <details close> 
-<summary> <h2>6️⃣ Manually Install the Log Analytics Agent on the Linux VM</h2> </summary>
+<summary> <h2>7️⃣ Simulate Brute Force Attack against Microsoft Entra ID</h2> </summary>
 <br>
 
-> The Next thing we're going to do is do same thing as previously, but this time for the Linux Virtual Machine.
+> We're going to Create an "Attacker User" to perform Brute-Force Attacks against our Microsoft Entra ID.
 > 
-> Basically in order to Install the Agent on the Linux ➜ we need to SSH into our Linux VM and Paste a command in there.
-
-<br>
-
-Still in the **Azure Portal** ➜ we'll go to our **linux-vm**  ➜ and copy its **Public IP Address**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-- Then if you're on **Windows** ➜ open **Powershell**
-
-- But if you're on **Mac**➜ open **Terminal**
-
-And now we'll **SSH into our Linux VM** ➜ so type ```ssh USERNAME@LINUX-VM IP ADDRESS```
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-It'll ask for the **Password** so just type it in (```Cyberlab123!```):
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-You'll know you're **logged in** when your prompt changes to something like this ```labuser@linux-vm```:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-<br>
-
-<h2></h2>
-
-<br>
-
-Now to Install the Log Analytics Agent on the Linux VM  ➜ we'll go back to the **"Agents"** blade in our **LAW**
-
-Click on the **"Linux Server"** tab ➜ and expand the **"Log Analytics agent instructions"**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Copy the Command Line under ***"Download and onboard agent for Linux"***:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Go back to the **Terminal App** ➜ **Paste the Command** ➜ and **Run It** (Press Enter):
-
-This will:
-- Download the Script
-- Execute the Script
-- Pass the Parameters, which is our ➜ Log Analytics **Workspace ID**, as well as our **Primary Key**
-- And then it'll also define the Endpoint that Ingests the Logs.
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-It should now install the **Log Analytics Agent** locally with a ```status code 0``` at the end:
-
-We can then just ```exit``` the SSH connection to our **Linux VM**:
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-Now we'll go back to the **Azure Portal** ➜ inside of our **Log Analytics Wokspace** ➜ click on the **"Agents"** blade again.
-
-On the VM's tabs we can check that both the **Log Analytics Agents were Successfully Installed** ✔️
-
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-
-✅ We should be able to start **Querying the Logs** directly inside of **Log Analytics Workspace**.
-
-<br>
-
-  </details>
-
-<h2></h2>
-
-<details close> 
-<summary> <h2>7️⃣ Query the Log Analytics Workspace for our VM Logs & NSG Logs</h2> </summary>
-<br>
-
-> The next thing we're going to do, before we finish this lab up, is Query the LAW for our VM Logs as well as our NSG Logs.
-> 
-> We can't move on to the next Lab until we actually start seeing those Logs showing up in there.
->
-> So let's just start doing that and hopefully they start showing up.
+> Produce 10 to 11 Failed Logins in the Azure Portal.
 
 <br>
 

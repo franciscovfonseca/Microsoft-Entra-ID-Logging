@@ -316,7 +316,35 @@ Clik on the **"Logs"** Blade ➜ and we'll Run the Query ```AuditLogs```
 
 > We're going to Create an "Attacker User" to perform Brute-Force Attacks against our Microsoft Entra ID.
 > 
-> Produce 10 to 11 Failed Logins in the Azure Portal.
+> We'll then attempt to login 10 times from the Portal just to Generate some Logs and then we'll inspect those Failed SigInLogs.
+
+<br>
+
+Go to **"Microsoft Entra ID"** ➜ clik on the **"Users"** Blade ➜ and then **"Create new User"**:
+
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+
+We'll use
+
+
+
+
+
+
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
 
 <br>
 

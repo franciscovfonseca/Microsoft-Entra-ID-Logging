@@ -185,7 +185,7 @@ We’ll Add a User by clicking on **"Create a user"**
 
 ![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
 
-Once the New User is Created ➜ we'll open a New Private Browsing Tab ➜ And go to **portal.azure.com**
+Once the New User is Created ➜ we'll open a **New Private Browsing Tab** ➜ And go to **portal.azure.com**
 
 ![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
 
@@ -320,93 +320,65 @@ Clik on the **"Logs"** Blade ➜ and we'll Run the Query ```AuditLogs```
 
 <br>
 
-Go to **"Microsoft Entra ID"** ➜ clik on the **"Users"** Blade ➜ and then **"Create new User"**:
+Go to **"Microsoft Entra ID"** ➜ clik on the **"Users"** Blade
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-We'll use
-
-
-
-
-
-
-
-<br>
-
-<br>
-
-<br>
-
-<br>
-
-<br>
-
-<br>
-
-<br>
-
-Back to the **Azure Portal** and to our **Log analytics Workspace** ➜ on the left we'll click on the **"Logs"** blade.
-
-💡 This is where we can start **Querying the Logs**:
+ We're then going to **"Create new User"**:
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
->   <details close> 
->   
-> **<summary> 📝 Explanation</summary>**
-> 
-> Basically this is where we can practice **KQL** (Kusto Query Language) ➜ which is similar to **SQL** (Structured Query Language).
-> 
-> Azure will create what's called a **Table**.
-> 
-> You can think of a **Table** as something similar to an Excel Spreadsheet, but in this case it's like a Database to Store our Logs.
-> 
->   </details>
+- We can name this New User ```attacker```
+- Copy and Save the **Auto-generated Password**
+- Click **"Review + create"**
 
-<br>
+![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
 
-To make sure the Logs are coming in from all 3 sources, we'll Query the different **Tables**.
+Once the New User is Created ➜ we'll open a **New Private Browsing Tab** ➜ And go to **portal.azure.com**
 
-1. The Table that is used to store the **Linux Logs** is called **Syslog**.
+![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
 
-We should be able to type ```Syslog``` ➜ and click the ▶️ **"Run"** Button to Query the Syslog Log:
+We'll attempt to properly Log in once with the Credentials of the ```attacker``` user:
+
+![image](https://github.com/user-attachments/assets/1b5478ad-fe53-4e52-b17e-e022ad75e1ca)
+
+And then we'll **Reset the Password** to ```Cyberlab123!``` and Sign In.
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
-✅ Looks like the **Linux VM Logs** are actually coming in ➜ so we know it's working.
+We can confirm that we Successfully Signed In with the User **"attacker"**
 
-<br>
+We can then close the Browsing Window ➜ and that in it of itself will terminate the session (Log out)
+
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+
+We're now going to Fail some Sign Ins with this **"attacker"** User on purpose.
+
+Open another **Private Browsing Window** ➜ And go to **portal.azure.com**
+
+We'll attempt to Login 10 times with a **Wrong Password**:
+
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+
+After that ➜ try to Login with the **Correct Password** ➜ to **Generate a Successfuly SignInLog**:
+
+![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+
+  </details>
 
 <h2></h2>
 
+<details close> 
+<summary> <h2>8️⃣ Observe SigninLogs in Log Analytics Workspace</h2> </summary>
 <br>
 
-2. The Table (aka the Excel Spreadsheet) that is used to hold the Logs from our Windows VMs is called **SecurityEvent**
-
-So next we're going to inspect the ```SecurityEvent``` Logs:
+We'll now go back to our **Log Analytics Workspace** ➜ and check the ```SignInLogs``` ➜ **Run the Query**
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
 
-✅ We can see the SecurityEvent Logs are coming in ➜ which is great!
-
-<br>
-
-<h2></h2>
-
-<br>
-
-3. The last Table is used to hold the NSG Logs ➜ **AzureNetworkAnalytics_CL**
-
-Again ➜ inside the LAW's **"Logs"** Blade ➜ Paste the command ```AzureNetworkAnalytics_CL``` and Run the Query:
+✅ You can go through the **"ResultDescription"** Tab an Identify all the **Invalid** Login Attempts:
 
 ![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
-✅ And we can see that the NSG Logs did come in.
-
-<br>
 
 <h2></h2>
 
@@ -422,25 +394,11 @@ Again ➜ inside the LAW's **"Logs"** Blade ➜ Paste the command ```AzureNetwor
 
 <br>
 
-Just to recap, in this lab we:
+This was a long Lab but it was very important to understand the AuditoLogs and the SignInLogs that were coming in fro Microsoft Entra ID.
 
-1. Created an **Azure Storage Account** for the Network Security Groups’ Flow Logs.
+In the Next Lab we're going to start looking at the Subscription Level Logs ➜ which is going to be the Activity Log.
 
-2. Enabled **NSG Flow Logs**.
-
-3. Created **Data Collection Rules** to specify which Logs to collect from our Windows and Linux VMs.
-
-4. Manually installed the **Log Analytics Agent** locally on the Virtual Machines.
-
-5. **ueried the Log Analytics Workspace** for our VMs Logs and for our NSGs Logs ➜ to see if they were showing up there.
-
-<br>
-
-After completing this lab, we are now successfully sending Logs from both the VMs and the NSGs into the Log Analytics Workspace.
-
-This is why we can Query things like Syslog and see all the Linux VM Logs.
-
-In subsequent labs we’ll do the same thing for our other resources as well as for our **Microsoft Entra ID Logs**.
+The Activity Logs involve all the creating and changing of Resources inside of the Azure Portal.
 
 
 <br />

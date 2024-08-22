@@ -400,11 +400,13 @@ We'll now go back to our **Log Analytics Workspace** ➜ and check the ```SignIn
 
 <br>
 
-This was a long Lab but it was very important to understand the AuditoLogs and the SignInLogs that were coming in fro Microsoft Entra ID.
+This was a long Lab, but it was very important to understand the AuditoLogs and the SignInLogs that were coming in from **Microsoft Entra ID**.
 
-In the Next Lab we're going to start looking at the Subscription Level Logs ➜ which is going to be the Activity Log.
+<br>
 
-The Activity Logs involve all the creating and changing of Resources inside of the Azure Portal.
+In the Next Lab we're going to start looking at the **Subscription Level Logs** ➜ which is going to be the **Activity Log**.
+
+The Activity Logs involve all the **Creating and Changing** of **Resources** inside of the **Azure Portal**.
 
 
 <br />

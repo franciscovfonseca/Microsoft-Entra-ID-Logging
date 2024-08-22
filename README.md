@@ -52,7 +52,11 @@ We’re going to bring in the **Logs from Microsoft Entra ID**, specifically the
 
 <br>
 
-### ➡️ High-Level Steps of what we’re going to do in this Lab:
+<br>
+
+<details close> 
+<summary> <h2> 💡 High-Level Steps of what we’re going to do in this Lab</h2> </summary>
+<br>
 
 1. Create Diagnostic Settings to Ingest Microsoft Entra ID Logs ➜ Sign-in and the Audit Logs
 
@@ -64,13 +68,15 @@ We’re going to bring in the **Logs from Microsoft Entra ID**, specifically the
 
 <br>
 
-✔️ We’re going to Perform these Actions and see what kind of Logs were Created on the backend.
+✅ We’re going to Perform these Actions and see what kind of Logs were Created on the backend.
 
-✔️ Then we'll make sure they’re being brought into our Log Analytics Workspace.  
-
-<br>
+✅ Then we'll make sure they’re being brought into our Log Analytics Workspace.  
 
 <br>
+
+  </details>
+
+<h2></h2>
 
 <details close> 
 <summary> <h2> 1️⃣ Create Diagnostic Settings to ingest Azure AD Logs</h2> </summary>

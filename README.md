@@ -52,19 +52,19 @@ We’re going to bring in the **Logs from Microsoft Entra ID**, specifically the
 
 <br>
 
-<br>
-
 <details close> 
-<summary> <h2> 💡 High-Level Steps of what we’re going to do in this Lab</h2> </summary>
+<summary> <h4> 💡 High-Level Steps of what we’re going to do in this Lab</h4> </summary>
+
 <br>
 
-1. Create Diagnostic Settings to Ingest Microsoft Entra ID Logs ➜ Sign-in and the Audit Logs
+    1. Create Diagnostic Settings to Ingest Microsoft Entra ID Logs ➜ Sign-in and the Audit Logs
 
-2. Create a Dummy User
+    2. Create a Dummy User
 
-3. Perform some Actions & Observe Logging:
-    - Mass Sign-in Failures (***Sign-in Logs***)
-    - Assignment of “Global Administrator” to User (***Audit Log***)
+    3. Perform some Actions & Observe Logging:
+        
+        - Mass Sign-in Failures (Sign-in Logs)
+        - Assignment of “Global Administrator” to User (Audit Log)
 
 <br>
 
@@ -90,19 +90,19 @@ We’re going to bring in the **Logs from Microsoft Entra ID**, specifically the
 
 We’ll go to the **"Azure Portal"** ➜ and open **"Microsoft Entra ID"**
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/9a5e6422-6307-49cd-a783-678965e43e9a)
 
 We’ll then click on the **"Diagnostic Settings"** Blade:
+
+![azure portal](https://github.com/user-attachments/assets/49abd42e-bcfb-406e-8a7d-1f5b4f5e3431)
 
 ➜ We can see all the different types of Logs that we can bring in.
 
 ➜ But for this Lab we’re just going to concern ourselves with the **Audit Logs** and the **SignInLogs**
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
 Click on ➕ **Add diagnostic setting** to create a new Diagnostic Setting:
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/61fa3911-9378-405f-945f-abe300ae0e63)
 
 - The **"Diagnostic setting name"** can be anything ➜ I’ll just name mine ```ds-audit-signin```
 
@@ -113,11 +113,11 @@ Click on ➕ **Add diagnostic setting** to create a new Diagnostic Setting:
 
 - Click 💾 Save
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/3eafe5fb-ff3d-4e9a-8ae8-0206b0ba947a)
 
 ✅ We can confirm that our **Diagnostic Setting** was successfully created:
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/3cad6cee-4ee7-4fee-bbe0-415b16290d13)
 
 <br>
 
@@ -147,19 +147,9 @@ Click on ➕ **Add diagnostic setting** to create a new Diagnostic Setting:
 
 We’ll go to our **Log Analytics Workspace** ➜ and click on the **"Tables"** blade:
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
-
 There should be 2 tables called **"SignInLogs"**  and **"AuditLogs"**  ➜ so we’ll search for them:
 
-
-WE’LL COME BACK TO THIS!!!!!!!!!!!!!!!!!!!!!
-
-
-<br>
-
-<br>
-
-<br>
+![azure portal](https://github.com/user-attachments/assets/928a921a-3c47-48d0-bd3e-6e292b2f9fab)
 
 <br>
 
@@ -179,21 +169,21 @@ WE’LL COME BACK TO THIS!!!!!!!!!!!!!!!!!!!!!
 
 Go to **"Microsoft Entra ID"** ➜ and click on the **"Users"** blade:
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/efe992b0-6bfd-4c3e-a8ab-0334a2cd9085)
 
 We’ll Add a User by clicking on **"Create a user"**
 
-![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
+![image](https://github.com/user-attachments/assets/0b5b50f5-7d74-4b98-bfcb-c26f3484ed16)
 
 - We can Name it ```dummy_user```
 - Copy and Save the **Auto-generated Password**
 - Click **"Review + create"** to Create the New User:
 
-![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
+![image](https://github.com/user-attachments/assets/b292f9c4-e08a-4637-8d54-e8ed0ae90847)
 
 Once the New User is Created ➜ we'll open a **New Private Browsing Tab** ➜ And go to **portal.azure.com**
 
-![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
+![image](https://github.com/user-attachments/assets/6259e712-0d35-4dd5-ac5e-5420444b3e38)
 
 Now we'll attempt to Log in with the New User's Credentials.
 
@@ -211,13 +201,15 @@ Now we'll attempt to Log in with the New User's Credentials.
 
 <br>
 
+![image](https://github.com/user-attachments/assets/0f1f5acd-eb5e-4162-88eb-457005c263cf)
+
 It'll have us change our **Password** ➜ so we'll just change it to ```Cyberlab123!```
 
-![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
+![image](https://github.com/user-attachments/assets/4a1715de-757c-45de-8268-912a9f601d55)
 
 ✅ So we were able to Log In as the **Dummy User**:
 
-![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
+![image](https://github.com/user-attachments/assets/822e7c4a-a0f3-4a9d-b98a-5c64b00bad8d)
 
   </details>
 
@@ -243,21 +235,21 @@ It'll have us change our **Password** ➜ so we'll just change it to ```Cyberlab
 
 Go back to the **"Users"** page in the Azure Portal ➜ and click on the ```dummy_user```
 
-![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
+![image](https://github.com/user-attachments/assets/9f944eb3-0957-44f1-b360-e57ea1274f20)
 
 💡 Assigning **Global Admin** to this Dummy User should generate another **AuditLog**
 
 So we can go to the **"Assigned roles"** blade ➜ and click on ➕ **Add assignments**
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/90260749-6672-4430-9599-daf040f3a503)
 
 search for ```global administrator``` ➜ select ☑️ **Global Administrator** ➜ and **"Add"** the Role:
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/8b5dbea6-8dad-4bbe-8da2-8d6f9610a52a)
 
 ✅ We can verify that the Dummy User was succcessfully assigned the **Global Administrator Role**:
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/3a5a9b39-4574-432e-9c32-090b9c893fe6)
 
   </details>
 
@@ -283,7 +275,7 @@ We'll just go back to the **"Microsoft Entra ID"** page ➜ clik on the **"Users
 
 Then inside the **"dummy_user"** ➜ **"Overview"** Blade ➜ click on 🗑️ **Delete** ➜ Press **"OK"**
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/6af1ec9b-6c5a-417a-afda-8a15a11300f5)
 
 ✅ That should have also created an **Audit Log** in the AuditLogs table.
 
@@ -299,7 +291,7 @@ Let's go back to our Log Analytics Workspace ```LAW-Cyber-Lab-01```
 
 Clik on the **"Logs"** Blade ➜ and we'll Run the Query ```AuditLogs```
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/f7ff5ad4-d055-468f-81b2-cc56b88ea500)
 
 ✅ We can basically see the "trail" of what we did with the Dummy User:
 1. Add User ➜ Created the Dummy User
@@ -328,35 +320,35 @@ Clik on the **"Logs"** Blade ➜ and we'll Run the Query ```AuditLogs```
 
 Go to **"Microsoft Entra ID"** ➜ clik on the **"Users"** Blade
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/4ee48bdf-2603-4892-8f97-c916300a66c3)
 
  We're then going to **"Create new User"**:
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/55c9e4dc-792a-4271-a24c-87a1d960dcbb)
 
 - We can name this New User ```attacker```
 - Copy and Save the **Auto-generated Password**
 - Click **"Review + create"**
 
-![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
+![image](https://github.com/user-attachments/assets/bbaf0bef-ce61-452e-abae-992dc7a121c1)
 
 Once the New User is Created ➜ we'll open a **New Private Browsing Tab** ➜ And go to **portal.azure.com**
 
-![image](https://github.com/user-attachments/assets/b7eb6fe6-f0ba-421c-8b9b-51baf0f9f958)
+![image](https://github.com/user-attachments/assets/a5f4e2bc-44b9-4dca-9086-3108a10f9856)
 
 We'll attempt to properly Log in once with the Credentials of the ```attacker``` user:
 
-![image](https://github.com/user-attachments/assets/1b5478ad-fe53-4e52-b17e-e022ad75e1ca)
+![image](https://github.com/user-attachments/assets/e1a7e093-24c0-4c38-9f3b-a4690639b957)
 
 And then we'll **Reset the Password** to ```Cyberlab123!``` and Sign In.
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/7df7a0b2-2d8b-4919-b569-65609024efea)
 
 We can confirm that we Successfully Signed In with the User **"attacker"**
 
-We can then close the Browsing Window ➜ and that in it of itself will terminate the session (Log out)
+We can then close the Browsing Window ➜ and that in it of itself will terminate the session (*Log out*)
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/9a161972-0260-4339-a95a-c9ad9be265ba)
 
 We're now going to Fail some Sign Ins with this **"attacker"** User on purpose.
 
@@ -364,11 +356,11 @@ Open another **Private Browsing Window** ➜ And go to **portal.azure.com**
 
 We'll attempt to Login 10 times with a **Wrong Password**:
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/6a577350-4eef-45ac-9cf9-f19823e80806)
 
 After that ➜ try to Login with the **Correct Password** ➜ to **Generate a Successfuly SignInLog**:
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/3f567f32-1a46-4998-a102-6ad8a2c6ccb8)
 
   </details>
 
@@ -380,11 +372,11 @@ After that ➜ try to Login with the **Correct Password** ➜ to **Generate a Su
 
 We'll now go back to our **Log Analytics Workspace** ➜ and check the ```SignInLogs``` ➜ **Run the Query**
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/b1f9d64c-52eb-478d-b6b8-11e3591bb0b5)
 
 ✅ You can go through the **"ResultDescription"** Tab an Identify all the **Invalid** Login Attempts:
 
-![azure portal](https://github.com/user-attachments/assets/42c1fe46-b2c3-4330-8a86-bd32748cb890)
+![azure portal](https://github.com/user-attachments/assets/7362a9ec-50a8-4850-b2b2-3733fd33f48e)
 
 <h2></h2>
 
@@ -406,7 +398,9 @@ This was a long Lab, but it was very important to understand the AuditoLogs and 
 
 In the Next Lab we're going to start looking at the **Subscription Level Logs** ➜ which is going to be the **Activity Log**.
 
-The Activity Logs involve all the **Creating and Changing** of **Resources** inside of the **Azure Portal**.
+<br>
+
+💡 The Activity Logs involve all the **Creating and Changing of Resources** inside of the **Azure Portal**.
 
 
 <br />
